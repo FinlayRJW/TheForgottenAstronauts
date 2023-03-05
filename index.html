@@ -8,6 +8,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
+            background-color: #222;
         }
 
         .container {
@@ -18,6 +19,8 @@
             height: 100vh;
         }
 
+
+
         .image {
             width: 300px;
             height: 200px;
@@ -25,6 +28,7 @@
             background-size: cover;
             background-position: center;
             cursor: pointer;
+            border: 1px solid #fff;
         }
 
         .overlay {
@@ -34,7 +38,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 999;
@@ -42,59 +46,51 @@
 
         .video-container {
             position: fixed;
+            padding: 10px;
             top: 20%;
             left: 20%;
             width: 60%;
             height: 60%;
-            background-color: white;
+            background-color: #a8a8a8;
             z-index: 1000;
         }
+
+        #play-button {
+            position: absolute;
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%);
+            margin: 0 auto;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #181e5c;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        .play-button:hover {
+            background-color: #3e8e41;
+        }
+
 
         .close-button {
             position: absolute;
             top: 10px;
             right: 10px;
             font-size: 24px;
-            color: black;
+            color: #fff;
             cursor: pointer;
         }
 
         #current-video {
             width: 100%;
             height: 100%;
-        }
-
-        .popup {
-            display: none;
-            position: fixed;
-            top: 20%;
-            left: 20%;
-            width: 60%;
-            height: 60%;
-            z-index: 1000;
-            background-color: white;
-            padding: 20px;
-        }
-
-        .popup h2 {
-            margin-top: 0;
-        }
-
-        .popup p {
-            margin-bottom: 0;
-        }
-
-        .popup .play-button {
-            display: block;
-            width: 100px;
-            height: 40px;
-            margin: 20px auto;
-            background-color: #008CBA;
-            color: white;
-            text-align: center;
-            line-height: 40px;
-            border-radius: 5px;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -103,17 +99,17 @@
 <body>
     <div class="container">
         <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+1')"
-            data-video-id="2Z4m4lnjxkY"></div>
+            data-video-id="2Z4m4lnjxkY" data-video-desc="Description of video 1"></div>
         <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+2')"
-            data-video-id="2Z4m4lnjxkY"></div>
+            data-video-id="2Z4m4lnjxkY" data-video-desc="Description of video 2"></div>
         <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+3')"
-            data-video-id="2Z4m4lnjxkY"></div>
+            data-video-id="2Z4m4lnjxkY" data-video-desc="Description of video 3"></div>
         <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+4')"
-            data-video-id="2Z4m4lnjxkY"></div>
+            data-video-id="2Z4m4lnjxkY" data-video-desc="Description of video 4"></div>
         <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+5')"
-            data-video-id="2Z4m4lnjxkY"></div>
+            data-video-id="2Z4m4lnjxkY" data-video-desc="Description of video 5"></div>
         <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+6')"
-            data-video-id="2Z4m4lnjxkY"></div>
+            data-video-id="2Z4m4lnjxkY" data-video-desc="Description of video 6"></div>
     </div>
 
     <div class="overlay">
@@ -132,9 +128,13 @@
     <script>
         let currentVideoId = '';
 
-        function showVideo(videoId) {
+        function showVideo(videoId, videoDes) {
             // Set the current video ID
             currentVideoId = videoId;
+
+            // Set the title and description of the video popup
+            $('.video-popup h2').text('Video Title');
+            $('.video-popup p').text(videoDes);
 
             // Show the video popup
             $('.video-popup').css('display', 'block');
@@ -177,9 +177,10 @@
 
                 // Get the data-video-id attribute of the clicked image
                 let videoId = $(this).data('video-id');
+                let videoDes = $(this).data('video-desc');
 
                 // Show the video player with the corresponding video
-                showVideo(videoId);
+                showVideo(videoId, videoDes);
             });
 
             // When the close button is clicked, hide the video player
