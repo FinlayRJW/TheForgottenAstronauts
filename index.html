@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Expandable Images</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .image {
+            width: 300px;
+            height: 200px;
+            margin: 20px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .video-container {
+            position: fixed;
+            top: 20%;
+            left: 20%;
+            width: 60%;
+            height: 60%;
+            background-color: white;
+            z-index: 1000;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: black;
+            cursor: pointer;
+        }
+
+        #current-video {
+            width: 100%;
+            height: 100%;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 20%;
+            width: 60%;
+            height: 60%;
+            z-index: 1000;
+            background-color: white;
+            padding: 20px;
+        }
+
+        .popup h2 {
+            margin-top: 0;
+        }
+
+        .popup p {
+            margin-bottom: 0;
+        }
+
+        .popup .play-button {
+            display: block;
+            width: 100px;
+            height: 40px;
+            margin: 20px auto;
+            background-color: #008CBA;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+1')"
+            data-video-id="2Z4m4lnjxkY"></div>
+        <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+2')"
+            data-video-id="2Z4m4lnjxkY"></div>
+        <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+3')"
+            data-video-id="2Z4m4lnjxkY"></div>
+        <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+4')"
+            data-video-id="2Z4m4lnjxkY"></div>
+        <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+5')"
+            data-video-id="2Z4m4lnjxkY"></div>
+        <div class="image" style="background-image: url('https://via.placeholder.com/300x200.png?text=Image+6')"
+            data-video-id="2Z4m4lnjxkY"></div>
+    </div>
+
+    <div class="overlay">
+        <div class="video-container">
+            <div class="video-popup">
+                <h2>Video Title</h2>
+                <p>Description of the video goes here</p>
+                <button id="play-button">Play</button>
+            </div>
+            <iframe id="current-video" src="" frameborder="0" allowfullscreen></iframe>
+            <div class="close-button">&times;</div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let currentVideoId = '';
+
+        function showVideo(videoId) {
+            // Set the current video ID
+            currentVideoId = videoId;
+
+            // Show the video popup
+            $('.video-popup').css('display', 'block');
+
+            // When the play button is clicked, start playing the video
+            $('#play-button').click(function () {
+                // Update the src attribute of the video element
+                let videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                $('#current-video').attr('src', videoUrl);
+
+                // Hide the video popup and show the video element
+                $('.video-popup').css('display', 'none');
+                $('#current-video').css('display', 'block');
+            });
+
+            // Show the video element and overlay
+            $('.overlay').css('display', 'flex');
+            $('.video-container').css('display', 'block');
+        }
+
+        function hideVideo() {
+            // Remove the src attribute of the video element
+            $('#current-video').removeAttr('src');
+
+            // Hide the video element and overlay
+            $('.overlay').css('display', 'none');
+            $('.video-container').css('display', 'none');
+        }
+
+        $(document).ready(function () {
+            if (currentVideoId == '') {
+                hideVideo();
+            }
+            // When an image is clicked, show the video player
+            $('.image').click(function () {
+                // Check if a video is already playing
+                if (currentVideoId !== '') {
+                    hideVideo();
+                }
+
+                // Get the data-video-id attribute of the clicked image
+                let videoId = $(this).data('video-id');
+
+                // Show the video player with the corresponding video
+                showVideo(videoId);
+            });
+
+            // When the close button is clicked, hide the video player
+            $('.close-button').click(function () {
+                hideVideo();
+            });
+        });
+    </script>
+</body>
+
+</html>
