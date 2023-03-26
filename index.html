@@ -6,8 +6,8 @@
 		body {
 			margin: 0;
 			padding: 0;
-            height: 100vh;
-            overflow: hidden; /* Hide scroll bars */
+            		height: 100vh;
+            		overflow: hidden; /* Hide scroll bars */
 		}
 		.container {
 			display: grid;
@@ -32,25 +32,25 @@
 			background-color: black;
 			display: none;
 		}
-        .close-button {
+        	.close-button {
 			position: absolute;
 			top: 20px;
-            right: 20px;
-            font-size: 36px;
-            color: #333;
-            cursor: pointer;
+            		right: 20px;
+            		font-size: 36px;
+            		color: #333;
+            		cursor: pointer;
 			cursor: pointer;
 			z-index: 999;
-			
+			caret-color: transparent;
 		}
-        .title {
+        	.title {
 			height: 100px;
 			background-color: #333;
 			color: #fff;
 			display: flex;
-            font-size: 36px;
+            		font-size: 36px;
 			align-items: center;
-            justify-content: center; /* Center the title horizontally */
+            		justify-content: center; /* Center the title horizontally */
 			padding: 0 20px;
 			box-sizing: border-box;
 		}
@@ -58,16 +58,16 @@
 </head>
 <body>
     <div class="title">
-		<h1>Choose Your Astronaut</h1>
+	<h1>Choose Your Astronaut</h1>
 	</div>
 	<div class="container">
-		<img src="https://placehold.it/500x300" alt="Image 1" class="image" onclick="openVideo('Media1.mp4')">
+	<img src="https://placehold.it/500x300" alt="Image 1" class="image" onclick="openVideo('Media1.mp4')">
         <img src="space.jpg" alt="Image 1" class="image" onclick="openVideo('video.mp4')">
         <img src="https://placehold.it/500x300" alt="Image 1" class="image" onclick="openVideo('video.mp4')">
         <img src="https://placehold.it/500x300" alt="Image 1" class="image" onclick="openVideo('video.mp4')">
         <img src="https://placehold.it/500x300" alt="Image 1" class="image" onclick="openVideo('video.mp4')">
-		<img src="https://placehold.it/500x300" alt="Image 2" class="image" onclick="openVideo('video.mp4')">
-		<video src="" id="video" controls autoplay onended="closeVideo()"></video>
+	<img src="https://placehold.it/500x300" alt="Image 2" class="image" onclick="openVideo('video.mp4')">
+	<video src="" id="video" controls autoplay onended="closeVideo()"></video>
 	</div>
 	<script>
 		let currentVideo = null;
